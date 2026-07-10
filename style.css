@@ -1,5 +1,7 @@
-/* --- RESET & GLOBAL VARIABLES --- */
-* {
+/* ==========================================================================
+   1. RESET, BASELINE & VARIABLES
+   ========================================================================== */
+   * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -30,8 +32,9 @@ a {
     color: inherit;
 }
 
-/* --- HEADER & NAVIGATION --- */
-
+/* ==========================================================================
+   2. HEADER & NAVIGATION ARCHITECTURE
+   ========================================================================== */
 header {
     position: fixed;
     top: 0;
@@ -59,7 +62,6 @@ header.scrolled {
     justify-content: space-between;
 }
 
-/* Nav Logo Link and Image Styling (Top-Left) */
 .nav-logo-link {
     display: flex;
     align-items: center;
@@ -77,7 +79,6 @@ header.scrolled {
     transform: scale(1.05);
 }
 
-/* Menu Links */
 .nav-menu {
     display: flex;
     list-style: none;
@@ -99,7 +100,6 @@ header.scrolled {
     color: var(--text-white);
 }
 
-/* Active Menu Underline matching original image styling */
 .nav-item.active a {
     color: var(--text-white);
 }
@@ -115,7 +115,6 @@ header.scrolled {
     border-radius: 2px;
 }
 
-/* Action Icons (Phone, Profile) */
 .nav-actions {
     display: flex;
     align-items: center;
@@ -142,7 +141,6 @@ header.scrolled {
     fill: currentColor;
 }
 
-/* Mobile Menu Toggle Button */
 .menu-toggle {
     display: none;
     background: none;
@@ -151,67 +149,54 @@ header.scrolled {
     cursor: pointer;
 }
 
-/* --- HERO SECTION --- */
-/* Container for the whole hero section */
+/* ==========================================================================
+   3. HERO BANNER ENVIRONMENT
+   ========================================================================== */
 .hero-section {
     position: relative;
     width: 100%;
-    min-height: 100vh; /* Takes full window height */
+    min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    background-color: #0b0f19; /* Fallback color while video loads */
+    background-color: #0b0f19;
 }
 
-/* Styling the video to stretch and cover the container */
 .bg-video {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Forces video to behave like a background cover */
-    z-index: 1; /* Puts it at the bottom layer */
+    object-fit: cover;
+    z-index: 1;
 }
 
-/* Content Container sitting on top of the video */
 .hero-content {
-    position: absolute; /* Changed from relative to absolute */
-    top: 0;             /* Anchors it to the top edge */
-    left: 0;            /* Anchors it to the left edge */
-    z-index: 2;         /* Keeps it above the video track */
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
     width: 100%;
     height: 100%;
-    
-    background: rgba(0, 0, 0, 0.4); /* Your original 40% dark tint */
-    
+    background: rgba(0, 0, 0, 0.4);
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Centers your titles and logo vertically */
-    align-items: center;     /* Centers everything horizontally */
+    justify-content: center;
+    align-items: center;
     padding: 20px;
 }
 
-
-/* Quick styling for buttons alignment */
-.hero-buttons {
-    margin-top: 25px;
-    display: flex;
-    gap: 20px;
-}
-
-/* Large Centered Custom BMS Logo Container */
 .hero-logo-container {
-    margin-bottom: 30px;
+    margin-bottom: 30px;    
     display: inline-flex;
     justify-content: center;
     align-items: center;
 }
 
-/* Responsive styling for bmsclogo.png image */
 .hero-logo-img {
-    max-width: 320px;
+    max-width: 470px;
     width: 100%;
     height: auto;
     object-fit: contain;
@@ -224,16 +209,16 @@ header.scrolled {
     filter: drop-shadow(0 12px 30px rgba(0, 118, 223, 0.45));
 }
 
-/* Corporate Headings matching image */
 .hero-title {
     font-family: 'Montserrat', sans-serif;
     font-size: 2.8rem;
     font-weight: 800;
-    letter-spacing: 1.5px;
+    letter-spacing: 1.25px;
     text-transform: uppercase;
     line-height: 1.25;
     margin-bottom: 15px;
     color: var(--text-white);
+    text-align: center;
 }
 
 .hero-subtitle {
@@ -243,89 +228,40 @@ header.scrolled {
     letter-spacing: 0.5px;
     margin-bottom: 40px;
     opacity: 0.95;
+    text-align: center;
 }
 
-/* CTA Interactive Buttons */
 .hero-buttons {
+    margin-top: 25px;
     display: flex;
-    justify-content: center;
     gap: 20px;
+    justify-content: center;
     flex-wrap: wrap;
 }
 
-.btn {
-    padding: 14px 32px;
-    font-size: 15px;
-    font-weight: 700;
-    border-radius: 8px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    transition: var(--transition);
-    cursor: pointer;
-    border: none;
-}
-
-.btn-primary {
-    background-color: var(--brand-blue);
-    color: var(--text-white);
-    box-shadow: 0 4px 15px rgba(0, 118, 223, 0.4);
-}
-
-.btn-primary:hover {
-    background-color: var(--brand-blue-hover);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0, 118, 223, 0.5);
-}
-
-.btn-outline {
-    background-color: transparent;
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    color: var(--text-white);
-}
-
-.btn-outline:hover {
-    background-color: rgba(255, 255, 255, 0.08);
-    border-color: var(--text-white);
-    transform: translateY(-2px);
-}
-
-/* Scroll Down Indicator animation */
 .scroll-down {
     position: absolute;
-    bottom: 20px;       /* Distance from the very bottom edge of the hero section */
+    bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
-    
-    /* Layout styling */
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 6px;
-    
-    /* Typography & Appearance */
     font-size: 11px;
     font-weight: 600;
     color: var(--text-gray);
     text-transform: uppercase;
     letter-spacing: 2px;
-    z-index: 15;        /* Makes sure it sits above all background elements */
+    z-index: 15;
     cursor: pointer;
-    
-    /* Subtle text shadow to keep it visible over busy video backgrounds */
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
-    
-    /* Animation trigger */
     animation: bounce 2s infinite;
 }
 
-/* Ensure the arrow icon scales cleanly */
-.scroll-down .arrow {
-    font-size: 16px;
-    line-height: 1;
-    margin-top: 2px;
-}
-
-/* --- CONTENT SECTION GENERAL STYLES --- */
+/* ==========================================================================
+   4. LAYOUT COMPONENTS & GLOBAL CORE SECTIONS
+   ========================================================================== */
 .section-container {
     max-width: 1200px;
     margin: 0 auto;
@@ -363,11 +299,51 @@ header.scrolled {
     border-radius: 2px;
 }
 
-/* --- PRODUCTS/SERVICES GRID --- */
+/* Global Buttons UI */
+.btn {
+    padding: 14px 32px;
+    font-size: 15px;
+    font-weight: 700;
+    border-radius: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: var(--transition);
+    cursor: pointer;
+    border: none;
+}
+
+.btn-primary {
+    background-color: var(--brand-blue);
+    color: var(--text-white);
+    box-shadow: 0 4px 15px rgba(0, 118, 223, 0.4);
+}
+
+.btn-primary:hover {
+    background-color: var(--brand-blue-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 118, 223, 0.5);
+}
+
+.btn-outline {
+    background-color: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    color: var(--text-white);
+}
+
+.btn-outline:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+    border-color: var(--text-white);
+    transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   5. INTERACTIVE PRODUCT & CATALOG SHOWCASE
+   ========================================================================== */
 .products-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 30px;
+    align-items: stretch; /* Forces all elements in a single row to share a uniform maximum height threshold */
 }
 
 .product-card {
@@ -378,6 +354,9 @@ header.scrolled {
     transition: var(--transition);
     position: relative;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* Dynamically fits the box to match the height of the tallest expanded item in the row */
 }
 
 .product-card::before {
@@ -430,9 +409,168 @@ header.scrolled {
     color: var(--text-gray);
     font-size: 15px;
     line-height: 1.6;
+    flex-grow: 1; /* Automatically absorbs remaining dead space to cleanly pin the buttons to the bottom row */
+    margin-bottom: 20px;
 }
 
-/* --- ABOUT US SECTION --- */
+.product-actions {
+    display: flex;
+    gap: 12px;
+    padding-top: 15px;
+    margin-top: auto; /* Guarantees layout tracking remains perfectly aligned across unexpanded items */
+}
+
+.btn-card-action {
+    flex: 1;
+    padding: 10px 16px;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.btn-features {
+    background-color: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: var(--text-white);
+}
+
+.btn-features:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-color: var(--text-white);
+}
+
+.btn-inquiry {
+    background-color: var(--brand-blue);
+    border: none;
+    color: var(--text-white);
+}
+
+.btn-inquiry:hover {
+    background-color: var(--brand-blue-hover);
+}
+
+/* Feature Dropdown Layouts */
+.features-dropdown {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-out, margin-top 0.4s ease;
+    margin-top: 0;
+}
+
+.features-dropdown.open {
+    max-height: 400px;
+    margin-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding-top: 15px;
+}
+
+.features-dropdown ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.features-dropdown ul li {
+    font-size: 14px;
+    color: var(--text-gray);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    line-height: 1.5;
+    text-align: left;
+}
+
+.more-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 40px;
+}
+
+.btn-more {
+    display: inline-block;
+    padding: 10px 24px;
+    color: #ffffff;
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    background-color: transparent;
+    transition: var(--transition);
+}
+
+.btn-more:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: #ffffff;
+}
+
+/* ==========================================================================
+   GRID OVERRIDE COMPATIBILITY SETTINGS (ISOLATED FLEX-AUTO FIX)
+   ========================================================================= */
+   .product-grid, .products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    align-items: start; 
+}
+
+.product-card {
+    display: flex;
+    flex-direction: column;
+    height: auto; 
+    min-height: 440px;
+}
+
+.product-desc {
+    flex-grow: 0; 
+    margin-bottom: 20px; 
+}
+
+.product-actions {
+    margin-top: auto; 
+    padding-top: 15px;
+}
+
+/* ==========================================================================
+   6. RESPONSIVE PARTNERS / CLIENTS SHEET
+   ========================================================================== */
+.client-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    align-items: stretch;
+}
+
+.client-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+}
+
+.client-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--brand-blue) !important;
+    box-shadow: 0 8px 20px rgba(0, 118, 223, 0.2);
+}
+
+.client-card img {
+    width: 100%;
+    max-width: 70px;
+    height: auto;
+    object-fit: contain;
+}
+
+/* ==========================================================================
+   7. ABOUT US STRUCTURAL GRIDS
+   ========================================================================== */
 .about-split {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -487,7 +625,9 @@ header.scrolled {
     font-weight: 600;
 }
 
-/* --- CONTACT & FOOTER SECTION --- */
+/* ==========================================================================
+   8. CONSULTATION FORM & CONTACT DESIGN
+   ========================================================================== */
 .contact-section {
     background-color: #090c10;
     border-top: 1px solid rgba(255, 255, 255, 0.05);
@@ -535,12 +675,16 @@ header.scrolled {
     margin-bottom: 5px;
 }
 
-.contact-detail p {
+.contact-detail p, .contact-detail a {
     color: var(--text-gray);
     font-size: 15px;
+    transition: var(--transition);
 }
 
-/* Premium Form fields */
+.contact-detail a:hover {
+    color: var(--text-white);
+}
+
 .contact-form {
     background-color: var(--bg-card);
     padding: 40px;
@@ -588,7 +732,9 @@ header.scrolled {
     min-height: 120px;
 }
 
-/* --- FOOTER --- */
+/* ==========================================================================
+   9. FOOTER LAYER BUILD
+   ========================================================================== */
 footer {
     background-color: var(--bg-dark);
     border-top: 1px solid rgba(255, 255, 255, 0.05);
@@ -631,7 +777,6 @@ footer {
     color: #64748b;
 }
 
-/* Message toast popups */
 .toast-message {
     position: fixed;
     bottom: 30px;
@@ -651,22 +796,18 @@ footer {
     transform: translateY(0);
 }
 
-/* --- ANIMATIONS --- */
-@keyframes pulse {
-    0% { transform: scale(1); opacity: 0.9; }
-    100% { transform: scale(1.15); opacity: 1; }
+/* ==========================================================================
+   10. MEDIA QUERIES & RESPONSIVE SYSTEMS
+   ========================================================================== */
+@media (min-width: 1200px) {
+    .client-grid {
+        grid-template-columns: repeat(6, 1fr);
+    }
 }
 
-@keyframes bounce {
-    0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); }
-    40% { transform: translateY(-10px) translateX(-50%); }
-    60% { transform: translateY(-5px) translateX(-50%); }
-}
-
-/* --- RESPONSIVE MEDIA QUERIES --- */
 @media (max-width: 968px) {
     .nav-menu {
-        display: none; /* Toggle handled in mobile menu responsive logic */
+        display: none;
         flex-direction: column;
         position: absolute;
         top: 71px;
@@ -716,5 +857,240 @@ footer {
     }
     .btn {
         width: 100%;
+    }
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); }
+    40% { transform: translateY(-10px) translateX(-50%); }
+    60% { transform: translateY(-5px) translateX(-50%); }
+}
+
+/* ==========================================================================
+   11. LOGIN STRUCTURAL INTERFACES WITH SKYLINE ENVIRONMENT MAP
+   ========================================================================== */
+.btn-login-nav {
+    background-color: var(--brand-blue);
+    padding: 6px 18px;
+    border-radius: 4px;
+    font-weight: 600;
+    transition: var(--transition);
+    display: inline-block;
+}
+
+.btn-login-nav:hover {
+    background-color: var(--brand-blue-hover);
+    transform: translateY(-1px);
+}
+
+.login-page-body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: linear-gradient(
+          rgba(12, 15, 20, 0.78), 
+          rgba(12, 15, 20, 0.88)
+        ), 
+        url('background.jpg') no-repeat center center fixed;
+    background-size: cover;
+    padding: 20px;
+    position: relative;
+}
+
+.back-home-container {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+}
+
+.back-home-btn {
+    color: var(--text-gray);
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+}
+
+.back-home-btn:hover {
+    color: var(--text-white);
+}
+
+.login-container {
+    width: 100%;
+    max-width: 450px;
+    animation: fadeInLogin 0.5s ease-out;
+}
+
+.login-card {
+    background-color: rgba(22, 27, 34, 0.88);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 40px 35px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+.login-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.login-logo {
+    height: 50px;
+    margin-bottom: 15px;
+    object-fit: contain;
+}
+
+.login-header h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--text-white);
+    margin-bottom: 8px;
+}
+
+.login-header p {
+    color: var(--text-gray);
+    font-size: 0.9rem;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-group-login {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group-login label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-gray);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.label-row-login {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.forgot-pass-link {
+    font-size: 0.8rem;
+    color: var(--brand-blue);
+    transition: var(--transition);
+}
+
+.forgot-pass-link:hover {
+    text-decoration: underline;
+    color: var(--brand-blue-hover);
+}
+
+.form-group-login input[type="email"],
+.form-group-login input[type="password"] {
+    width: 100%;
+    padding: 12px 16px;
+    background-color: rgba(12, 15, 20, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    color: var(--text-white);
+    font-family: inherit;
+    font-size: 0.95rem;
+    transition: var(--transition);
+}
+
+.form-group-login input:focus {
+    outline: none;
+    border-color: var(--brand-blue);
+    box-shadow: 0 0 0 3px rgba(0, 118, 223, 0.15);
+}
+
+.remember-me-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 2px;
+}
+
+.remember-me-container input[type="checkbox"] {
+    accent-color: var(--brand-blue);
+    cursor: pointer;
+    width: 15px;
+    height: 15px;
+}
+
+.remember-me-container label {
+    font-size: 0.85rem;
+    color: var(--text-gray);
+    cursor: pointer;
+    user-select: none;
+}
+
+.btn-login-submit {
+    background-color: var(--brand-blue);
+    color: var(--text-white);
+    border: none;
+    border-radius: 6px;
+    padding: 14px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    margin-top: 10px;
+}
+
+.btn-login-submit:hover {
+    background-color: var(--brand-blue-hover);
+    transform: translateY(-1px);
+}
+
+.btn-login-submit:active {
+    transform: translateY(1px);
+}
+
+.login-footer {
+    text-align: center;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    font-size: 0.8rem;
+    color: var(--text-gray);
+}
+
+.login-footer a {
+    color: var(--brand-blue);
+    font-weight: 500;
+}
+
+.login-footer a:hover {
+    text-decoration: underline;
+}
+
+@keyframes fadeInLogin {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 576px) {
+    .login-card {
+        padding: 30px 20px;
+    }
+    .back-home-container {
+        top: 15px;
+        left: 15px;
     }
 }
