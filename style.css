@@ -1094,3 +1094,40 @@ footer {
         left: 15px;
     }
 }
+
+/* ==========================================================================
+   INFINITE AUTOMATIC CLIENT SLIDER (MARQUEE EFFECT)
+   ========================================================================== */
+.client-slider-container {
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+    padding: 20px 0;
+}
+
+/* Linear infinitely loops leftward */
+.client-slider-track {
+    display: flex;
+    gap: 30px;
+    width: max-content; /* Dynamically sizes to fit all original + cloned slides */
+    animation: scrollLeft 50s linear infinite;
+}
+
+/* Pause the auto slider when users mouse over cards to read features */
+.client-slider-container:hover .client-slider-track {
+    animation-play-state: paused;
+}
+
+.client-slide {
+    flex: 0 0 300px; /* Gives each client card a stable, fixed width while sliding */
+}
+
+/* THE MISSING KEYFRAME ANIMATION */
+@keyframes scrollLeft {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%); /* Moves exactly halfway (hiding the original set, showing the clone set) */
+    }
+}
