@@ -1095,9 +1095,9 @@ footer {
     }
 }
 
-/* ==========================================================================
-   INFINITE AUTOMATIC CLIENT SLIDER (MARQUEE EFFECT)
-   ========================================================================== */
+/* =====================================================
+   INFINITE AUTOMATIC CLIENT SLIDER (FIXED & EVEN)
+   ===================================================== */
 .client-slider-container {
     overflow: hidden;
     width: 100%;
@@ -1109,17 +1109,18 @@ footer {
 .client-slider-track {
     display: flex;
     gap: 30px;
-    width: max-content; /* Dynamically sizes to fit all original + cloned slides */
+    width: max-content; 
     animation: scrollLeft 50s linear infinite;
 }
 
-/* Pause the auto slider when users mouse over cards to read features */
+/* Pause the auto slider when users mouse over cards */
 .client-slider-container:hover .client-slider-track {
     animation-play-state: paused;
 }
 
 .client-slide {
-    flex: 0 0 300px; /* Gives each client card a stable, fixed width while sliding */
+    flex: 0 0 300px; 
+    display: flex; /* Ensures child elements can reliably take full height */
 }
 
 /* THE MISSING KEYFRAME ANIMATION */
@@ -1128,28 +1129,50 @@ footer {
         transform: translateX(0);
     }
     100% {
-        transform: translateX(-50%); /* Moves exactly halfway (hiding the original set, showing the clone set) */
+        transform: translateX(-50%); 
     }
 }
 
-/* Overrides your global text-heavy product-card heights */
+/* Overrides global cards to force absolute uniformity */
 .client-slide .product-card {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between; /* Evenly distributes logo top, text bottom */
     text-align: center;
-    padding: 15px; /* Slightly tighter padding to give the logo more room */
-    height: 180px !important; 
-    min-height: auto !important; 
+    padding: 24px 16px; 
+    width: 100%; /* Forces card to strictly match the 300px slide width */
+    height: 220px !important; /* Bumped slightly to comfortably house 125px logo + text */
+    min-height: 220px !important; 
+    box-sizing: border-box;
+}
+
+/* Uniform, centered box specifically for holding the image */
+.client-logo-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 125px; /* Matches the target image height */
+    margin-bottom: 12px;
 }
 
 /* Enlarged logo styling */
 .client-logo {
-    width: auto;
-    max-width: 120%; /* Allows the image to span wider across the box */
-    height: 125px; /* Increased from 65px to make the logo significantly larger */
+    width: 100%;
+    max-width: 140px; /* Controls max width so it doesn't distort */
+    height: 100%;
     object-fit: contain;
-    margin-bottom: 6px; /* Reduced to balance the larger logo size inside the box */
     display: block;
+}
+
+/* Forces the caption text to stack perfectly underneath */
+.client-slide .product-card h4, 
+.client-slide .product-card p,
+.client-slide .product-card span {
+    font-size: 15px;
+    font-weight: 600;
+    margin: 0;
+    color: var(--text-white);
+    white-space: nowrap; /* Prevents text wrapping from changing box shapes */
 }

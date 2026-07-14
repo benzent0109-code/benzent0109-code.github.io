@@ -241,7 +241,7 @@ window.scrollToSec = function(sectionId) {
 };
 
 // ==========================================
-// 8. DYNAMIC CLIENT CAROUSEL AUTO-DUPLICATION
+// 10. DYNAMIC CLIENT CAROUSEL AUTO-DUPLICATION
 // ==========================================
 const sliderTrack = document.querySelector('.client-slider-track');
 if (sliderTrack) {
@@ -252,3 +252,4 @@ if (sliderTrack) {
         sliderTrack.appendChild(clone);
     });
 }
+
