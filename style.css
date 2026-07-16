@@ -9,6 +9,37 @@
 }
 
 
+/* ==========================================================================
+   1. RESET, BASELINE & VARIABLES
+   ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+:root {
+    --bg-dark: #0c0f14;
+    --bg-card: #161b22;
+    --text-white: #ffffff;
+    --text-gray: #a0aec0;
+    --brand-blue: #0076df;
+    --brand-blue-hover: #005bb5;
+    --brand-red: #e53e3e;
+    --nav-bg: rgba(12, 15, 20, 0.85);
+    --transition: all 0.3s ease;
+}
+
+/* ADD THIS LIGHT THEME OVERRIDE BLOCK HERE: */
+body.light-theme {
+    --bg-dark: #f7fafc;          /* Light off-white background */
+    --bg-card: #ffffff;          /* Clean white card background */
+    --text-white: #1a202c;       /* Dark charcoal gray text for legibility */
+    --text-gray: #4a5568;        /* Slate gray for secondary text */
+    --nav-bg: rgba(247, 250, 252, 0.95); /* Light navigation bar background */
+}
+
 :root {
     --bg-dark: #0c0f14;
     --bg-card: #161b22;
@@ -383,7 +414,7 @@ header.scrolled {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 30px;
-    align-items: stretch; /* Forces all elements in a single row to share a uniform maximum height threshold */
+    align-items: stretch;
 }
 
 
@@ -397,7 +428,7 @@ header.scrolled {
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    height: 100%; /* Dynamically fits the box to match the height of the tallest expanded item in the row */
+    height: 100%;
 }
 
 
@@ -457,7 +488,7 @@ header.scrolled {
     color: var(--text-gray);
     font-size: 15px;
     line-height: 1.6;
-    flex-grow: 1; /* Automatically absorbs remaining dead space to cleanly pin the buttons to the bottom row */
+    flex-grow: 1;
     margin-bottom: 20px;
 }
 
@@ -466,7 +497,7 @@ header.scrolled {
     display: flex;
     gap: 12px;
     padding-top: 15px;
-    margin-top: auto; /* Guarantees layout tracking remains perfectly aligned across unexpanded items */
+    margin-top: auto;
 }
 
 
@@ -508,7 +539,6 @@ header.scrolled {
 }
 
 
-/* Feature Dropdown Layouts */
 .features-dropdown {
     max-height: 0;
     overflow: hidden;
@@ -573,10 +603,7 @@ header.scrolled {
 }
 
 
-/* ==========================================================================
-   GRID OVERRIDE COMPATIBILITY SETTINGS (ISOLATED FLEX-AUTO FIX)
-   ========================================================================= */
-   .product-grid, .products-grid {
+.product-grid, .products-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 30px;
@@ -604,9 +631,9 @@ header.scrolled {
 }
 
 
-/* ==========================================================================
+/* ========================================== -->
    6. RESPONSIVE PARTNERS / CLIENTS SHEET
-   ========================================================================== */
+   ========================================== --> */
 .client-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
@@ -827,7 +854,7 @@ header.scrolled {
 
 
 /* ==========================================================================
-   9. FOOTER LAYER BUILD
+   9. FOOTER LAYER BUILD & MASTER WIDGET MATRIX
    ========================================================================== */
 footer {
     background-color: var(--bg-dark);
@@ -895,6 +922,276 @@ footer {
 
 .toast-message.show {
     transform: translateY(0);
+}
+
+
+/* ==========================================================================
+   9. CUSTOM INTEGRATED CHATBOT INTERACTION MATRIX
+   ========================================================================== */
+.chatbot-widget-container {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 9999;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+
+.chatbot-launcher-btn {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: var(--brand-blue);
+    color: var(--text-white);
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 6px 24px rgba(0, 118, 223, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+    flex-shrink: 0;
+}
+
+
+.chatbot-launcher-btn:hover {
+    transform: scale(1.08) translateY(-2px);
+    background-color: var(--brand-blue-hover);
+    box-shadow: 0 8px 28px rgba(0, 118, 223, 0.5);
+}
+
+
+.chatbot-launcher-btn svg {
+    width: 26px;
+    height: 26px;
+    transition: transform 0.3s ease;
+}
+
+
+.chatbot-portal-card,
+.chatbot-window {
+    position: absolute;
+    bottom: 75px;
+    right: 0;
+    width: 360px;
+    height: 500px;
+    background-color: var(--bg-card);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+
+.chatbot-portal-card.open,
+.chatbot-window.open {
+    display: flex;
+}
+
+
+.chatbot-header,
+.chat-header {
+    background-color: #0c0f14;
+    padding: 16px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    flex-shrink: 0 !important;
+}
+
+
+.chatbot-profile-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+
+.chatbot-avatar-indicator {
+    position: relative;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: rgba(0, 118, 223, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(0, 118, 223, 0.2);
+}
+
+
+.status-dot-pulse {
+    position: absolute;
+    bottom: -1px;
+    right: -1px;
+    width: 10px;
+    height: 10px;
+    background-color: #22c55e;
+    border: 2px solid var(--bg-card);
+    border-radius: 50%;
+}
+
+
+.chatbot-core-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-white);
+}
+
+
+.chatbot-core-status {
+    font-size: 11px;
+    color: var(--text-gray);
+}
+
+
+.chatbot-message-stream,
+.chat-messages-container {
+    flex-grow: 1;
+    padding: 20px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    background-color: #0d1117;
+}
+
+
+.chat-message,
+.chat-msg {
+    display: flex;
+    max-width: 82%;
+}
+
+
+.chat-message .message-bubble,
+.chat-msg .message-bubble {
+    padding: 11px 15px;
+    border-radius: 12px;
+    font-size: 13.5px;
+    line-height: 1.5;
+    word-break: break-word;
+}
+
+
+.chat-message.system-msg,
+.chat-msg.system {
+    align-self: flex-start;
+}
+
+
+.chat-message.system-msg .message-bubble,
+.chat-msg.system .message-bubble {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: #e2e8f0;
+    border-top-left-radius: 2px;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+
+.chat-message.user-msg,
+.chat-msg.user {
+    align-self: flex-end;
+}
+
+
+.chat-message.user-msg .message-bubble,
+.chat-msg.user .message-bubble {
+    background-color: var(--brand-blue);
+    color: var(--text-white);
+    border-top-right-radius: 2px;
+}
+
+
+.chatbot-quick-replies,
+.chat-quick-replies-tray,
+#chat-quick-replies-tray {
+    padding: 8px 16px;
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    background-color: #0d1117;
+    border-top: 1px solid rgba(255, 255, 255, 0.03);
+    scrollbar-width: none;
+    flex-shrink: 0 !important;
+}
+
+
+.chatbot-quick-replies::-webkit-scrollbar {
+    display: none;
+}
+
+
+.quick-reply-btn {
+    padding: 6px 12px;
+    font-size: 11.5px;
+    font-weight: 600;
+    background-color: transparent;
+    color: var(--brand-blue);
+    border: 1px solid rgba(0, 118, 223, 0.3);
+    border-radius: 20px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: var(--transition);
+}
+
+
+.quick-reply-btn:hover {
+    background-color: rgba(0, 118, 223, 0.1);
+    border-color: var(--brand-blue);
+}
+
+
+.chatbot-input-console,
+.chat-input-bar,
+#chat-input-form {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    background-color: #0c0f14;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    flex-shrink: 0 !important;
+}
+
+
+.chatbot-input-console input,
+.chat-input-bar input {
+    flex-grow: 1;
+    background: transparent;
+    border: none;
+    color: var(--text-white);
+    font-size: 13.5px;
+    padding: 8px 0;
+    outline: none;
+}
+
+
+.chatbot-input-console input::placeholder {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+
+.chatbot-send-btn,
+.chat-send-submit {
+    background: transparent;
+    border: none;
+    color: var(--brand-blue);
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+}
+
+
+.chatbot-send-btn:hover: {
+    color: var(--brand-blue-hover);
+    transform: scale(1.1);
 }
 
 
@@ -1002,11 +1299,7 @@ footer {
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    background: linear-gradient(
-          rgba(12, 15, 20, 0.78),
-          rgba(12, 15, 20, 0.88)
-        ),
-        url('background.jpg') no-repeat center center fixed;
+    background: linear-gradient(rgba(12, 15, 20, 0.78), rgba(12, 15, 20, 0.88)), url('background.jpg') no-repeat center center fixed;
     background-size: cover;
     padding: 20px;
     position: relative;
@@ -1216,25 +1509,14 @@ footer {
 
 
 @keyframes fadeInLogin {
-    from {
-        opacity: 0;
-        transform: translateY(15px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 
 @media (max-width: 576px) {
-    .login-card {
-        padding: 30px 20px;
-    }
-    .back-home-container {
-        top: 15px;
-        left: 15px;
-    }
+    .login-card { padding: 30px 20px; }
+    .back-home-container { top: 15px; left: 15px; }
 }
 
 
@@ -1249,7 +1531,7 @@ footer {
 }
 
 
-/* Linear infinitely loops leftward */
+
 .client-slider-track {
     display: flex;
     gap: 30px;
@@ -1258,7 +1540,7 @@ footer {
 }
 
 
-/* Pause the auto slider when users mouse over cards */
+
 .client-slider-container:hover .client-slider-track {
     animation-play-state: paused;
 }
@@ -1266,58 +1548,54 @@ footer {
 
 .client-slide {
     flex: 0 0 300px;
-    display: flex; /* Ensures child elements can reliably take full height */
+    display: flex;
 }
 
 
-/* THE MISSING KEYFRAME ANIMATION */
+
 @keyframes scrollLeft {
-    0% {
-        transform: translateX(0);
-    }
-    100% {
-        transform: translateX(-50%);
-    }
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
 }
 
 
-/* Overrides global cards to force absolute uniformity */
+
 .client-slide .product-card {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between; /* Evenly distributes logo top, text bottom */
+    justify-content: space-between;
     text-align: center;
     padding: 24px 16px;
-    width: 100%; /* Forces card to strictly match the 300px slide width */
-    height: 220px !important; /* Bumped slightly to comfortably house 125px logo + text */
+    width: 100%;
+    height: 220px !important;
     min-height: 220px !important;
     box-sizing: border-box;
 }
 
 
-/* Uniform, centered box specifically for holding the image */
+
 .client-logo-wrapper {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
-    height: 125px; /* Matches the target image height */
+    height: 125px;
     margin-bottom: 12px;
 }
 
 
-/* Enlarged logo styling */
+
 .client-logo {
     width: 100%;
-    max-width: 140px; /* Controls max width so it doesn't distort */
+    max-width: 140px;
     height: 100%;
     object-fit: contain;
     display: block;
 }
 
 
-/* Forces the caption text to stack perfectly underneath */
+
 .client-slide .product-card h4,
 .client-slide .product-card p,
 .client-slide .product-card span {
@@ -1325,291 +1603,396 @@ footer {
     font-weight: 600;
     margin: 0;
     color: var(--text-white);
-    white-space: nowrap; /* Prevents text wrapping from changing box shapes */
+
+    white-space: nowrap;
 }
+
+
+
+@media (max-width: 480px) {
+    .chatbot-widget-container { bottom: 16px; right: 16px; }
+    .chatbot-portal-card,
+    .chatbot-window { width: calc(100vw - 32px); height: 440px; }
+}
+
 /* ==========================================================================
-   9. CUSTOM INTEGRATED CHATBOT INTERACTION MATRIX
+   12. LIGHT THEME SPECIFIC IMPLEMENTATIONS & TRANSITIONS
    ========================================================================== */
-.chatbot-widget-container {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    z-index: 9999;
-    font-family: 'Plus Jakarta Sans', sans-serif;
+
+/* Apply transitions on theme changes across elements */
+body, 
+header, 
+.product-card, 
+.about-split, 
+.contact-section, 
+.contact-form, 
+.form-input, 
+.form-textarea,
+.chatbot-portal-card,
+.chatbot-window,
+.chatbot-header,
+.chat-header,
+.chatbot-message-stream,
+.chat-messages-container,
+.chatbot-input-console,
+.chat-input-bar,
+.login-card {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-
-/* Floating Action Launcher Button CSS */
-.chatbot-launcher-btn {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    background-color: var(--brand-blue);
+/* Light Theme Overrides */
+body.light-theme {
+    /* Main body background & global white text overrides */
+    background-color: var(--bg-dark);
     color: var(--text-white);
-    border: none;
-    cursor: pointer;
-    box-shadow: 0 6px 24px rgba(0, 118, 223, 0.4);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: var(--transition);
 }
 
-
-.chatbot-launcher-btn:hover {
-    transform: scale(1.08) translateY(-2px);
-    background-color: var(--brand-blue-hover);
-    box-shadow: 0 8px 28px rgba(0, 118, 223, 0.5);
+/* Header & Nav in Light Mode */
+body.light-theme header {
+    background-color: var(--nav-bg);
+    border-bottom-color: rgba(0, 0, 0, 0.08);
 }
 
-
-.chatbot-launcher-btn svg {
-    width: 26px;
-    height: 26px;
-    transition: transform 0.3s ease;
+body.light-theme header.scrolled {
+    background-color: #f7fafc;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 }
 
-
-.chatbot-launcher-btn .hidden {
-    display: none;
+/* Ensure navbar active indicators remain visible in light mode */
+body.light-theme .nav-item a:hover {
+    color: var(--text-white);
 }
 
+body.light-theme .nav-item.active a {
+    color: var(--text-white);
+}
 
-/* Main Portal Window Architecture Box */
-.chatbot-portal-card {
-    position: absolute;
-    bottom: 75px;
-    right: 0;
-    width: 360px;
-    height: 500px;
+/* === CRITICAL: PRESERVE HERO VIDEO TEXT AND BACKGROUND COLORS === */
+/* This ensures the home page video section styles, text overlays, and elements 
+   maintain dark-background contrast even when light-theme is active on the body. */
+body.light-theme .hero-section {
+    background-color: #0b0f19; /* Force dark background */
+}
+
+body.light-theme .hero-content {
+    background: rgba(0, 0, 0, 0.4); /* Force dark gradient background */
+}
+
+body.light-theme .hero-title {
+    color: #ffffff !important; /* Force original white text */
+}
+
+body.light-theme .hero-subtitle {
+    color: #e2e8f0 !important; /* Force original off-white text */
+}
+
+body.light-theme .scroll-down {
+    color: #a0aec0 !important; /* Force original gray text */
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8) !important;
+}
+
+body.light-theme .btn-outline {
+    color: #ffffff !important;
+    border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+body.light-theme .btn-outline:hover {
+    background-color: rgba(255, 255, 255, 0.08) !important;
+    border-color: #ffffff !important;
+}
+
+/* Products & Client Slides in Light Theme */
+body.light-theme .product-card {
+    border-color: rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+body.light-theme .product-card:hover {
+    border-color: var(--brand-blue);
+    box-shadow: 0 8px 24px rgba(0, 118, 223, 0.15);
+}
+
+body.light-theme .btn-features {
+    border-color: rgba(0, 0, 0, 0.15);
+    color: var(--text-white);
+}
+
+body.light-theme .btn-features:hover {
+    background-color: rgba(0, 0, 0, 0.03);
+    border-color: var(--text-white);
+}
+
+body.light-theme .features-dropdown.open {
+    border-top-color: rgba(0, 0, 0, 0.08);
+}
+
+body.light-theme .btn-more {
+    color: var(--text-white);
+    border-color: rgba(0, 0, 0, 0.15);
+}
+
+body.light-theme .btn-more:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    border-color: var(--text-white);
+}
+
+/* Infinite Automatic Client Slider Light Overrides */
+body.light-theme .client-slide .product-card h4,
+body.light-theme .client-slide .product-card p,
+body.light-theme .client-slide .product-card span {
+    color: var(--text-white) !important;
+}
+
+/* Contact Section & Forms in Light Theme */
+body.light-theme .contact-section {
+    background-color: #f0f4f8;
+    border-top-color: rgba(0, 0, 0, 0.05);
+}
+
+body.light-theme .contact-circle {
     background-color: var(--bg-card);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 16px;
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    opacity: 0;
-    transform: translateY(20px) scale(0.95);
-    pointer-events: none;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-color: rgba(0, 0, 0, 0.05);
 }
 
-
-.chatbot-portal-card.open {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-    pointer-events: auto;
+body.light-theme .contact-form {
+    border-color: rgba(0, 0, 0, 0.05);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
 }
 
-
-/* Header Interface Panel */
-.chatbot-header {
-    background-color: #0c0f14;
-    padding: 16px 20px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-
-.chatbot-profile-info {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-
-.chatbot-avatar-indicator {
-    position: relative;
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    background-color: rgba(0, 118, 223, 0.1);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid rgba(0, 118, 223, 0.2);
-}
-
-
-.chatbot-avatar-indicator img {
-    width: 22px;
-    height: 22px;
-    object-fit: contain;
-}
-
-
-.status-dot-pulse {
-    position: absolute;
-    bottom: -1px;
-    right: -1px;
-    width: 10px;
-    height: 10px;
-    background-color: #22c55e;
-    border: 2px solid var(--bg-card);
-    border-radius: 50%;
-}
-
-
-.chatbot-core-title {
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--text-white);
-}
-
-
-.chatbot-core-status {
-    font-size: 11px;
+body.light-theme .form-label {
     color: var(--text-gray);
 }
 
-
-/* Message Box Stream Display Screen Area */
-.chatbot-message-stream {
-    flex-grow: 1;
-    padding: 20px;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    background-color: #0d1117;
-}
-
-
-/* Chat Bubbles Component Styling Modules */
-.chat-message {
-    display: flex;
-    max-width: 82%;
-}
-
-
-.chat-message .message-bubble {
-    padding: 11px 15px;
-    border-radius: 12px;
-    font-size: 13.5px;
-    line-height: 1.5;
-    word-break: break-word;
-}
-
-
-.chat-message.system-msg {
-    align-self: flex-start;
-}
-
-
-.chat-message.system-msg .message-bubble {
-    background-color: rgba(255, 255, 255, 0.05);
-    color: #e2e8f0;
-    border-top-left-radius: 2px;
-    border: 1px solid rgba(255, 255, 255, 0.03);
-}
-
-
-.chat-message.user-msg {
-    align-self: flex-end;
-}
-
-
-.chat-message.user-msg .message-bubble {
-    background-color: var(--brand-blue);
+body.light-theme .form-input, 
+body.light-theme .form-textarea {
+    background-color: #f7fafc;
+    border-color: rgba(0, 0, 0, 0.1);
     color: var(--text-white);
-    border-top-right-radius: 2px;
 }
 
-
-/* Instant Navigation Quick-Reply Controls */
-.chatbot-quick-replies {
-    padding: 8px 16px;
-    display: flex;
-    gap: 8px;
-    overflow-x: auto;
-    background-color: #0d1117;
-    border-top: 1px solid rgba(255, 255, 255, 0.03);
-    scrollbar-width: none;
-}
-.chatbot-quick-replies::-webkit-scrollbar {
-    display: none;
-}
-
-
-.quick-reply-btn {
-    padding: 6px 12px;
-    font-size: 11.5px;
-    font-weight: 600;
-    background-color: transparent;
-    color: var(--brand-blue);
-    border: 1px solid rgba(0, 118, 223, 0.3);
-    border-radius: 20px;
-    cursor: pointer;
-    white-space: nowrap;
-    transition: var(--transition);
-}
-
-
-.quick-reply-btn:hover {
-    background-color: rgba(0, 118, 223, 0.1);
+body.light-theme .form-input:focus, 
+body.light-theme .form-textarea:focus {
     border-color: var(--brand-blue);
+    background-color: #ffffff;
 }
 
-
-/* Input Form Console Layout Components */
-.chatbot-input-console {
-    display: flex;
-    align-items: center;
-    padding: 12px 16px;
-    background-color: #0c0f14;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
+/* Custom Chatbot Widget in Light Theme */
+body.light-theme .chatbot-portal-card,
+body.light-theme .chatbot-window {
+    border-color: rgba(0, 0, 0, 0.08);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
 }
 
+body.light-theme .chatbot-header,
+body.light-theme .chat-header {
+    background-color: #f0f4f8;
+    border-bottom-color: rgba(0, 0, 0, 0.08);
+}
 
-.chatbot-input-console input {
-    flex-grow: 1;
-    background: transparent;
-    border: none;
+body.light-theme .chatbot-message-stream,
+body.light-theme .chat-messages-container {
+    background-color: #f7fafc;
+}
+
+body.light-theme .chat-message.system-msg .message-bubble,
+body.light-theme .chat-msg.system .message-bubble {
+    background-color: #ffffff;
     color: var(--text-white);
-    font-size: 13.5px;
-    padding: 8px 0;
-    outline: none;
+    border-color: rgba(0, 0, 0, 0.05);
 }
 
-
-.chatbot-input-console input::placeholder {
-    color: rgba(255, 255, 255, 0.3);
+body.light-theme .chatbot-quick-replies,
+body.light-theme .chat-quick-replies-tray,
+#chat-quick-replies-tray {
+    background-color: #f7fafc;
+    border-top-color: rgba(0, 0, 0, 0.03);
 }
 
+body.light-theme .chatbot-input-console,
+body.light-theme .chat-input-bar,
+#chat-input-form {
+    background-color: #f0f4f8;
+    border-top-color: rgba(0, 0, 0, 0.08);
+}
 
-.chatbot-send-btn {
-    background: transparent;
-    border: none;
+body.light-theme .chatbot-input-console input,
+body.light-theme .chat-input-bar input {
+    color: var(--text-white);
+}
+
+body.light-theme .chatbot-input-console input::placeholder,
+body.light-theme .chat-input-bar input::placeholder {
+    color: rgba(0, 0, 0, 0.4);
+}
+
+/* === LOGIN CLIENT PORTAL IN LIGHT THEME === */
+body.light-theme .login-card {
+    background-color: rgba(255, 255, 255, 0.95);
+    border-color: rgba(0, 0, 0, 0.08);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+}
+
+body.light-theme .login-header h2 {
+    color: var(--text-white);
+}
+
+body.light-theme .login-header p {
+    color: var(--text-gray);
+}
+
+body.light-theme .form-group-login label {
+    color: var(--text-gray);
+}
+
+body.light-theme .form-group-login input[type="email"],
+body.light-theme .form-group-login input[type="password"] {
+    background-color: #ffffff;
+    border-color: rgba(0, 0, 0, 0.15);
+    color: var(--text-white);
+}
+
+body.light-theme .form-group-login input:focus {
+    border-color: var(--brand-blue);
+    box-shadow: 0 0 0 3px rgba(0, 118, 223, 0.15);
+}
+
+body.light-theme .remember-me-container label {
+    color: var(--text-gray);
+}
+
+body.light-theme .login-footer {
+    border-top-color: rgba(0, 0, 0, 0.05);
+    color: var(--text-gray);
+}
+/* ==========================================================================
+   LIGHT & DARK MODE TOGGLE DEFINITIONS
+   ========================================================================== */
+
+/* 1. Light Theme Variable Overrides */
+body.light-theme {
+    --bg-dark: #f0f4f8;          /* Soft light background */
+    --bg-card: #ffffff;          /* Clean white card backgrounds */
+    --text-white: #1a202c;       /* Crisp dark grey/black text for readability */
+    --text-gray: #4a5568;        /* Medium grey for secondary text */
+    --nav-bg: rgba(240, 244, 248, 0.9); /* Translucent light nav background */
+}
+
+/* 2. Transition properties for smooth color morphing */
+body, 
+header, 
+.product-card, 
+.contact-section, 
+.contact-form, 
+.form-input, 
+.form-textarea,
+.login-card,
+.chatbot-window,
+.chatbot-message-stream,
+.chatbot-input-console {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* 3. Header Scrolled Styling in Light Mode */
+body.light-theme header.scrolled {
+    background-color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+/* 4. Contact Form Fields & Elements in Light Mode */
+body.light-theme .form-input, 
+body.light-theme .form-textarea {
+    background-color: #f7fafc;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    color: #1a202c !important;
+}
+
+body.light-theme .form-input::placeholder, 
+body.light-theme .form-textarea::placeholder {
+    color: #718096;
+}
+
+body.light-theme .contact-circle {
+    background-color: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* 5. Client Portal Login Page Adjustments */
+body.light-theme .login-card {
+    background-color: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+body.light-theme .login-header h2 {
+    color: #1a202c;
+}
+
+body.light-theme .form-group-login input {
+    background-color: #f7fafc !important;
+    border: 1px solid rgba(0, 0, 0, 0.15) !important;
+    color: #1a202c !important;
+}
+
+body.light-theme .form-group-login label,
+body.light-theme .remember-me-container label {
+    color: #4a5568;
+}
+
+body.light-theme .forgot-pass-link {
     color: var(--brand-blue);
-    cursor: pointer;
-    padding: 4px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: var(--transition);
 }
 
-
-.chatbot-send-btn:hover {
-    color: var(--brand-blue-hover);
-    transform: scale(1.1);
+/* 6. Chatbot Widget Styling in Light Mode */
+body.light-theme .chatbot-window {
+    background-color: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-
-.chatbot-send-btn svg {
-    width: 20px;
-    height: 20px;
+body.light-theme .chatbot-header,
+body.light-theme .chatbot-input-console {
+    background-color: #f7fafc;
 }
 
+body.light-theme .chatbot-message-stream {
+    background-color: #f0f4f8;
+}
 
-/* Adaptive Media Optimization Boundaries */
-@media (max-width: 480px) {
-    .chatbot-widget-container {
-        bottom: 16px;
-        right: 16px;
-    }
-    .chatbot-portal-card {
-        width: calc(100vw - 32px);
-        height: 440px;
-    }
+body.light-theme .chatbot-input-console input {
+    color: #1a202c !important;
+}
+
+/* ==========================================================================
+   SAFEGUARD RULES: KEEP HERO VIDEO TEXT & FOOTER COMPLETELY DARK
+   ========================================================================== */
+
+/* Force original styles on the hero section so the video overlay text is untouched */
+body.light-theme .hero-section,
+body.light-theme .hero-content,
+body.light-theme .hero-title,
+body.light-theme .hero-subtitle,
+body.light-theme .video-background,
+body.light-theme .scroll-down {
+    background: transparent !important;
+    color: #ffffff !important;
+}
+
+/* Fallback for the video dark overlay cover to stay dark */
+body.light-theme .hero-content {
+    background: rgba(0, 0, 0, 0.4) !important;
+}
+
+/* STRICT RULE: Protect the entire footer from light-mode inheritance */
+body.light-theme footer,
+body.light-theme footer * {
+    background-color: #0c0f14 !important;
+    color: #a0aec0 !important;
+}
+
+body.light-theme footer a {
+    color: #ffffff !important;
+}
+
+body.light-theme footer a:hover {
+    color: var(--brand-blue) !important;
 }

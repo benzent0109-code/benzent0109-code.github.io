@@ -217,7 +217,7 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
         // Homepage Execution: Scan viewport offsets dynamically via IntersectionObserver
         const sectionIds = ["home", "products", "clients", "about", "contact"];
-        const sections = sectionIds.map(id => document.getElementById(sectionId = id)).filter(el => el !== null);
+        const sections = sectionIds.map(id => document.getElementById(id)).filter(el => el !== null);
 
 
         const observerOptions = {
@@ -249,6 +249,188 @@ document.addEventListener("DOMContentLoaded", () => {
 
         sections.forEach(section => sectionObserver.observe(section));
     }
+
+
+    // ==========================================
+    // 10. DYNAMIC CLIENT CAROUSEL AUTO-DUPLICATION
+    // ==========================================
+    const sliderTrack = document.querySelector('.client-slider-track');
+    if (sliderTrack) {
+        const originalSlides = Array.from(sliderTrack.children);
+        // Automatically clone each item and append it to form the loop backing
+        originalSlides.forEach(slide => {
+            const clone = slide.cloneNode(true);
+            sliderTrack.appendChild(clone);
+        });
+    }
+
+
+    // ==========================================
+    // 11. INTEGRATED MODULAR ECOSYSTEM AI CHATBOT CONTROLLER (WITH CACHE RETENTION)
+    // ==========================================
+    const launcher = document.getElementById("chatbot-launcher");
+    const windowBox = document.getElementById("chatbot-window");
+    const closeBtn = document.getElementById("chat-close-btn");
+    const inputForm = document.getElementById("chat-input-form");
+    const inputField = document.getElementById("chat-input-field");
+    const messagesContainer = document.getElementById("chat-messages-container");
+    const quickTray = document.getElementById("chat-quick-replies-tray");
+
+
+    if (launcher && windowBox && messagesContainer) {
+       
+        // Load saved state log context metric array or establish fallback initial block
+        const defaultWelcome = "Hello! Welcome to Brothers Megawork Systems Corporation. How can I assist you with our enterprise solutions today?";
+        let storedHistory = JSON.parse(sessionStorage.getItem("bms_chat_history")) || [
+            { text: defaultWelcome, sender: "system" }
+        ];
+
+
+        // Maintain view visibility state flags matching transitions across page shifts
+        if (sessionStorage.getItem("bms_chat_open") === "true") {
+            windowBox.classList.add("open");
+        }
+
+
+        function renderSavedHistory() {
+            messagesContainer.innerHTML = "";
+            storedHistory.forEach(msg => {
+                const bubble = document.createElement("div");
+                bubble.className = `chat-message ${msg.sender === 'user' ? 'user-msg' : 'system-msg'}`;
+               
+                const innerBubble = document.createElement("div");
+                innerBubble.className = "message-bubble";
+                innerBubble.textContent = msg.text;
+               
+                bubble.appendChild(innerBubble);
+                messagesContainer.appendChild(bubble);
+            });
+            scrollToLatestMessage();
+        }
+
+
+        function scrollToLatestMessage() {
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+
+        function appendMessage(text, senderType) {
+            storedHistory.push({ text: text, sender: senderType });
+            sessionStorage.setItem("bms_chat_history", JSON.stringify(storedHistory));
+           
+            const bubble = document.createElement("div");
+            bubble.className = `chat-message ${senderType === 'user' ? 'user-msg' : 'system-msg'}`;
+           
+            const innerBubble = document.createElement("div");
+            innerBubble.className = "message-bubble";
+            innerBubble.textContent = text;
+           
+            bubble.appendChild(innerBubble);
+            messagesContainer.appendChild(bubble);
+            scrollToLatestMessage();
+        }
+
+
+        function processAutomatedReply(triggerText) {
+            const cleanText = triggerText.toLowerCase();
+            setTimeout(() => {
+                if (cleanText.includes("product") || cleanText.includes("bcsas") || cleanText.includes("hris") || cleanText.includes("aims")) {
+                    appendMessage("We specialize in core B2B modules: BCSAS (Credit/Savings Ledgers), B-HRIS-PTMS (Payroll & Biometric Timekeeping), and B-AIMS (Accounting & Inventory Management System). You can view deeper code features on our standalone 'Products' tab up top!", "system");
+                } else if (cleanText.includes("contact") || cleanText.includes("consult") || cleanText.includes("inquiry")) {
+                    appendMessage("You can reach out to our enterprise desk at brothersmsc.sales@gmail.com, call us directly at +632-5310-5085, or drop details in the consultation form behind this window.", "system");
+                } else if (cleanText.includes("portal") || cleanText.includes("login")) {
+                    appendMessage("Our corporate Client Portal can be reached using the secure authorization options on our top bar profile link icon or navigating directly to your assigned enterprise web subdomain dashboard.", "system");
+                } else {
+                    appendMessage("Thank you for reaching out to Brothers Megawork Systems Corporation. Your message has been noted. For active system deployment discussions, please consider using our Consultation Form details container.", "system");
+                }
+            }, 600);
+        }
+
+
+        launcher.addEventListener("click", () => {
+            const isOpen = windowBox.classList.toggle("open");
+            sessionStorage.setItem("bms_chat_open", isOpen);
+            scrollToLatestMessage();
+        });
+
+
+        if (closeBtn) {
+            closeBtn.addEventListener("click", () => {
+                windowBox.classList.remove("open");
+                sessionStorage.setItem("bms_chat_open", "false");
+            });
+        }
+
+
+        if (inputForm) {
+            inputForm.addEventListener("submit", (e) => {
+                e.preventDefault();
+                const text = inputField.value.trim();
+                if (!text) return;
+
+
+                appendMessage(text, "user");
+                inputField.value = "";
+                processAutomatedReply(text);
+            });
+        }
+
+
+        if (quickTray) {
+            quickTray.querySelectorAll(".quick-reply-btn").forEach(btn => {
+                btn.addEventListener("click", () => {
+                    const replyVal = btn.getAttribute("data-reply");
+                    if (replyVal === "Products") {
+                        appendMessage("Tell me about your software products.", "user");
+                        processAutomatedReply("products");
+                    } else if (replyVal === "Contact") {
+                        appendMessage("How can I contact sales for an inquiry?", "user");
+                        processAutomatedReply("contact");
+                    } else if (replyVal === "Portal") {
+                        appendMessage("Where is the client login portal?", "user");
+                        processAutomatedReply("portal");
+                    }
+                });
+            });
+        }
+
+
+        // Boot system memory processing loops
+        renderSavedHistory();
+    }
+
+
+    // ==========================================
+    // 12. PERSISTENT LIGHT/DARK THEME SWITCHER
+    // ==========================================
+    const themeToggleBtn = document.getElementById("theme-toggle-btn");
+    
+    if (themeToggleBtn) {
+        // Query current stored cache state from local disk memory
+        const activeTheme = localStorage.getItem("bms_site_theme");
+
+        // Sync visual UI on initialization
+        if (activeTheme === "light") {
+            document.body.classList.add("light-theme");
+            updateThemeIcon(true);
+        } else {
+            document.body.classList.remove("light-theme");
+            updateThemeIcon(false);
+        }
+
+        themeToggleBtn.addEventListener("click", () => {
+            const isLight = document.body.classList.toggle("light-theme");
+            localStorage.setItem("bms_site_theme", isLight ? "light" : "dark");
+            updateThemeIcon(isLight);
+        });
+
+        // Helper macro to transition SVG layouts
+        function updateThemeIcon(isLight) {
+            themeToggleBtn.innerHTML = isLight 
+                ? `<svg viewBox="0 0 24 24" class="theme-icon-light" style="display: block; width: 22px; height: 22px; fill: currentColor;"><path d="M12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9M12,2A1,1 0 0,1 13,3V5A1,1 0 0,1 12,6A1,1 0 0,1 11,5V3A1,1 0 0,1 12,2M12,18A1,1 0 0,1 13,19V21A1,1 0 0,1 12,22A1,1 0 0,1 11,21V19A1,1 0 0,1 12,18M20,12A1,1 0 0,1 21,13H23A1,1 0 0,1 24,12A1,1 0 0,1 23,11H21A1,1 0 0,1 20,12M2,12A1,1 0 0,1 3,11H5A1,1 0 0,1 6,12A1,1 0 0,1 5,13H3A1,1 0 0,1 2,12M19.78,4.8C20.17,5.19 20.17,5.82 19.78,6.21L18.36,7.63C17.97,8.02 17.34,8.02 16.95,7.63C16.56,7.24 16.56,6.61 16.95,6.22L18.37,4.8C18.76,4.41 19.39,4.41 19.78,4.8M5.64,18.36C6.03,18.75 6.03,19.38 5.64,19.77L4.22,21.19C3.83,21.58 3.2,21.58 2.81,21.19C2.42,20.8 2.42,20.17 2.81,19.78L4.23,18.36C4.62,17.97 5.25,17.97 5.64,18.36M19.78,19.2C20.17,18.81 20.17,18.18 19.78,17.79L18.36,16.37C17.97,15.98 17.34,15.98 16.95,16.37C16.56,16.76 16.56,17.39 16.95,17.78L18.37,19.2C18.76,19.59 19.39,19.59 19.78,19.2M5.64,5.64C6.03,5.25 6.03,4.62 5.64,4.23L4.22,2.81C3.83,2.42 3.2,2.42 2.81,2.81C2.42,3.2 2.42,3.83 2.81,4.22L4.23,5.64C4.62,6.03 5.25,6.03 5.64,5.64Z"/></svg>`
+                : `<svg viewBox="0 0 24 24" class="theme-icon-dark" style="display: block; width: 22px; height: 22px; fill: currentColor;"><path d="M12,18C11.11,18 10.26,17.8 9.5,17.45C11.56,16.5 13,14.42 13,12C13,9.58 11.56,7.5 9.5,6.55C10.26,6.2 11.11,6 12,6A6,6 0 0,1 18,12A6,6 0 0,1 12,18M20,8.69V4H15.31L12,0.69L8.69,4H4V8.69L0.69,12L4,15.31V20H8.69L12,23.31L15.31,20H20V15.31L23.31,12L20,8.69Z"/></svg>`;
+        }
+    }
 });
 
 
@@ -267,116 +449,3 @@ window.scrollToSec = function(sectionId) {
         });
     }
 };
-
-
-// ==========================================
-// 10. DYNAMIC CLIENT CAROUSEL AUTO-DUPLICATION
-// ==========================================
-const sliderTrack = document.querySelector('.client-slider-track');
-if (sliderTrack) {
-    const originalSlides = Array.from(sliderTrack.children);
-    // Automatically clone each item and append it to form the loop backing
-    originalSlides.forEach(slide => {
-        const clone = slide.cloneNode(true);
-        sliderTrack.appendChild(clone);
-    });
-}
-
-
-// ==========================================
-    // 11. INTEGRATED MODULAR ECOSYSTEM AI CHATBOT CONTROLLER
-    // ==========================================
-    const launcher = document.getElementById("chatbotLauncher");
-    const portal = document.getElementById("chatbotPortal");
-    const inputConsole = document.getElementById("chatbotInputConsole");
-    const inputField = document.getElementById("chatbotInputField");
-    const stream = document.getElementById("chatbotMessageStream");
-    const quickReplies = document.getElementById("chatbotQuickReplies");
-
-
-    if (launcher && portal && inputConsole && inputField && stream) {
-        const iconOpen = launcher.querySelector(".chat-icon-open");
-        const iconClose = launcher.querySelector(".chat-icon-close");
-
-
-        // Action 1: Toggle Portal Modal Window State Bounds
-        launcher.addEventListener("click", () => {
-            const isOpen = portal.classList.toggle("open");
-            if (isOpen) {
-                iconOpen.classList.add("hidden");
-                iconClose.classList.remove("hidden");
-                inputField.focus();
-            } else {
-                iconOpen.classList.remove("hidden");
-                iconClose.classList.add("hidden");
-            }
-        });
-
-
-        // Action 2: Core Append Message Logic String
-        function appendMessage(text, side) {
-            const messageWrapper = document.createElement("div");
-            messageWrapper.classList.add("chat-message", side === "user" ? "user-msg" : "system-msg");
-           
-            const bubble = document.createElement("div");
-            bubble.classList.add("message-bubble");
-            bubble.innerText = text;
-           
-            messageWrapper.appendChild(bubble);
-            stream.appendChild(messageWrapper);
-           
-            // Instantly fluid scan to bottom view limits
-            stream.scrollTop = stream.scrollHeight;
-        }
-
-
-        // Action 3: Automated Logic Engine Core System Mock
-        function processAutomatedReply(userInput) {
-            const query = userInput.toLowerCase();
-            setTimeout(() => {
-                if (query.includes("product") || query.includes("bcsas") || query.includes("hris") || query.includes("aims")) {
-                    appendMessage("Our primary suites are:\n• BCSAS (Credit & Savings Ledger Utilities)\n• B-HRIS-PTMS (Human Resource, Biometrics & Payroll Engine)\n• B-AIMS (Accounting & Inventory Supply Management).\n\nWould you like me to take you to the Products page?", "system");
-                } else if (query.includes("contact") || query.includes("consult") || query.includes("inquiry")) {
-                    appendMessage("You can submit a formal technical request directly on our Consultation Form located at the footer of the home page, or drop an inquiry email to brothersmsc.sales@gmail.com.", "system");
-                } else if (query.includes("portal") || query.includes("login")) {
-                    appendMessage("Authorized enterprise personnel can securely log in via the Client Portal button located on the topmost corner of the global navigation menu header navigation.", "system");
-                } else {
-                    appendMessage("Thank you for reaching out to Brothers Megawork Systems Corporation. Your message has been routed to our technical consultants. Feel free to explore our product lines using the quick layout buttons below!", "system");
-                }
-            }, 600);
-        }
-
-
-        // Action 4: Form Submit Trigger Bounds Intercept
-        inputConsole.addEventListener("submit", (e) => {
-            e.preventDefault();
-            const text = inputField.value.trim();
-            if (!text) return;
-
-
-            appendMessage(text, "user");
-            inputField.value = "";
-            processAutomatedReply(text);
-        });
-
-
-        // Action 5: Quick Preset Automation Setup Click Event Triggers
-        if (quickReplies) {
-            quickReplies.querySelectorAll(".quick-reply-btn").forEach(btn => {
-                btn.addEventListener("click", () => {
-                    const replyVal = btn.getAttribute("data-reply");
-                    if (replyVal === "Products") {
-                        appendMessage("Tell me about your software products.", "user");
-                        processAutomatedReply("products");
-                    } else if (replyVal === "Contact") {
-                        appendMessage("How can I contact sales for an inquiry?", "user");
-                        processAutomatedReply("contact");
-                    } else if (replyVal === "Portal") {
-                        appendMessage("Where is the client login portal?", "user");
-                        processAutomatedReply("portal");
-                    }
-                });
-            });
-        }
-    }
-
