@@ -2017,3 +2017,58 @@ body.light-theme .chat-message.user-msg .message-bubble,
 body.light-theme .chat-msg.user .message-bubble {
     color: #ffffff !important;
 } 
+
+/* ========================================================== 
+   EMERGENCY MOBILE OVERRIDES 
+   ========================================================== */
+
+/* Extra closing bracket to protect against any unclosed blocks above it */
+} 
+
+@media screen and (max-width: 768px) {
+    
+    /* 1. Contact Section Layout & Text Fixes */
+    div.contact-grid, 
+    .contact-grid {
+        display: flex !important;
+        flex-direction: column !important;
+        grid-template-columns: 1fr !important;
+        gap: 35px !important;
+    }
+
+    div.contact-info-block, 
+    .contact-info-block {
+        display: block !important;
+        width: 100% !important;
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+        margin-bottom: 20px !important;
+        box-sizing: border-box !important;
+    }
+
+    .contact-info-block h3 {
+        font-size: 1.6rem !important;
+        line-height: 1.3 !important;
+        margin-bottom: 12px !important;
+    }
+
+    .contact-info-block p {
+        font-size: 15px !important;
+        line-height: 1.5 !important;
+        margin-bottom: 12px !important;
+    }
+
+    /* 2. Login Page Container Spacing Fixes */
+    div.login-container, 
+    .login-container {
+        display: block !important;
+        width: 92% !important;
+        max-width: 400px !important;
+        min-width: 0 !important;
+        margin: 40px auto !important;
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+        box-sizing: border-box !important;
+        float: none !important;
+    }
+}
