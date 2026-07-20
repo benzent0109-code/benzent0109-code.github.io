@@ -477,3 +477,4 @@ window.scrollToSec = function(sectionId) {
         });
     }
 };
+
